@@ -18,6 +18,7 @@ export default {
   },
 
   mounted() {
+    // FIX THE REQUEST URL WITH MODES
     axios
       .request({
         url: "http://localhost:5000/api/gifs",
