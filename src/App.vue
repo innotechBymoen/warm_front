@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-for="gif in gifs" :key="gif[0]">
+      <img :src="gif[1]" />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from "axios";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+
+  data() {
+    return {
+      gifs: [],
+    };
+  },
+
+  mounted() {
+    axios
+      .request({
+        url: "http://localhost:5000/api/gifs",
+      })
+      .then((res) => {
+        this.gifs = res["data"];
+      })
+      .catch(() => {});
+  },
+};
 </script>
 
 <style>
+img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 </style>
