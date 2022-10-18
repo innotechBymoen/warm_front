@@ -21,7 +21,7 @@ export default {
     // FIX THE REQUEST URL WITH MODES
     axios
       .request({
-        url: "http://localhost:5000/api/gifs",
+        url: `${process.env.VUE_APP_BASE_DOMAIN}/api/gifs`,
       })
       .then((res) => {
         this.gifs = res["data"];
